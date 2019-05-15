@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>dev.pizza</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+.wrap {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+@media (max-width: 480px) {
+	.wrap {
+		flex-direction: column;
+	}
+}
+.wrap > * {
+	flex: 0 1 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.icon {
+	font-size: 5rem;
+}
+.input {
+	margin: 0 auto;
+}
+.input > * {
+	border: none;
+	font-size: 2rem;
+	font-family: inherit;
+	padding: 2px;
+	margin: 0;
+	text-align: center;
+}
+.input > span {
+	position: absolute;
+}
+.input > span + input {
+	padding-left: 0.5em;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type=number] {
+	-moz-appearance:textfield;
+}
+</style>
+<script>
+"use strict";
+document.addEventListener('DOMContentLoaded', function (event) {
+	var dollars = document.querySelector('#dollars input');
+	var pizzas = document.querySelector('#pizzas input');
+	var devs = document.querySelector('#devs input');
+	function bind(input, ratio) {
+		input.onchange = input.oninput = function (e) {
+			update(e.target.value, ratio, input);
+		};
+	}
+	function set(input, n) {
+		if (!Number.isNaN(n)) {
+			n = Math.round(n * 2) / 2;
+			input.value = n;
+			input.style.width = (String(n).length + 1) + 'ch';
+		}
+	}
+	function update(n, ratio, input) {
+		input.style.width = (String(n).length + 1) + 'ch';
+		var n = Number.parseFloat(n) * ratio;
+		if (input != dollars) set(dollars, n);
+		if (input != pizzas) set(pizzas, n/2.5);
+		if (input != devs) set(devs, n/50);
+	}
+	update(dollars.value, 1, dollars);
+	bind(dollars, 1);
+	bind(pizzas, 2.5);
+	bind(devs, 50);
+});
+</script>
+</head>
+<body>
+<div class="wrap">
+<div id="dollars">
+	<div class="icon">💸</div>
+	<div class="input">
+		<span>$</span><input type="number" value="100" step="any" min="0" />
+	</div>
+	<i>dollars</i>
+</div>
+<div id="pizzas">
+	<div class="icon">🍕</div>
+	<div class="input"><input type="number" step="any" min="0" /></div>
+	<i>slices of pizza</i>
+</div>
+<div id="devs">
+	<div class="icon">👩‍💻</div>
+	<div class="input"><input type="number" step="any" min="0" /></div>
+	<i>developer-hours</i>
+</div>
+</div>
+</body>
+</html>
