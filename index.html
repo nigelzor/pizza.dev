@@ -13,6 +13,7 @@ body {
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
+	justify-content: space-around; /* IE11 */
 	justify-content: space-evenly;
 }
 @media (max-width: 480px) {
@@ -21,7 +22,7 @@ body {
 	}
 }
 .wrap > * {
-	flex: 0 1 1;
+	flex: 0 1 10%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -63,27 +64,27 @@ document.addEventListener('DOMContentLoaded', function (event) {
 	var devs = document.querySelector('#devs input');
 	function bind(input, ratio) {
 		input.onchange = input.oninput = function (e) {
-			update(e.target.value, ratio, input);
+			var n = e.target.value;
+			input.style.width = (String(n).length + 1) + 'ch';
+			update(parseFloat(n) * ratio, input);
 		};
 	}
 	function set(input, n) {
-		if (!Number.isNaN(n)) {
-			n = Math.round(n * 2) / 2;
-			input.value = n;
-			input.style.width = (String(n).length + 1) + 'ch';
+		n = Math.round(n * 2) / 2;
+		input.value = n;
+		input.style.width = (String(n).length + 1) + 'ch';
+	}
+	function update(n, input) {
+		if (!isNaN(n)) {
+			if (input != dollars) set(dollars, n);
+			if (input != pizzas) set(pizzas, n/2.5);
+			if (input != devs) set(devs, n/50);
 		}
 	}
-	function update(n, ratio, input) {
-		input.style.width = (String(n).length + 1) + 'ch';
-		var n = Number.parseFloat(n) * ratio;
-		if (input != dollars) set(dollars, n);
-		if (input != pizzas) set(pizzas, n/2.5);
-		if (input != devs) set(devs, n/50);
-	}
-	update(dollars.value, 1, dollars);
 	bind(dollars, 1);
 	bind(pizzas, 2.5);
 	bind(devs, 50);
+	update(100, null);
 });
 </script>
 </head>
@@ -92,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 <div id="dollars">
 	<div class="icon">💸</div>
 	<div class="input">
-		<span>$</span><input type="number" value="100" step="any" min="0" />
+		<span>$</span><input type="number" step="any" min="0" />
 	</div>
 	<i>dollars</i>
 </div>
