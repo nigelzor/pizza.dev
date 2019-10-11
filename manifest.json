@@ -2,10 +2,22 @@
   "dir": "ltr",
   "lang": "en",
   "name": "pizza.dev",
-  "scope" : "/pizza.dev/",
-  "display" : "fullscreen",
-  "start_url" : "/pizza.dev/",
+  "scope": "/pizza.dev/",
+  "display": "fullscreen",
+  "start_url": "/pizza.dev/",
   "theme_color": "white",
   "orientation": "any",
-  "background_color": "white"
+  "background_color": "white",
+  "icons": [
+    {
+      "src": "assets/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
