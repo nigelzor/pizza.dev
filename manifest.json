@@ -1,0 +1,11 @@
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "pizza.dev",
+  "scope" : "/pizza.dev/",
+  "display" : "fullscreen",
+  "start_url" : "/pizza.dev/",
+  "theme_color": "white",
+  "orientation": "any",
+  "background_color": "white"
+}
