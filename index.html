@@ -95,6 +95,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
 	bind(devs, 50);
 	update(100, null);
 });
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('sw.js');
+}
 </script>
 </head>
 <body>
